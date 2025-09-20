@@ -38,8 +38,7 @@ public class MoveDirection extends Command {
      @Override
      public void initialize() 
      {
-        SmartDashboard.putString("Drive Mode", "MoveDirection:" + statusName);
-        finalPosition = swerveSubsystem().getPose().plus(new Transform2d(translation, swerveSubsystem.getRotation2d()));
+        finalPosition = swerveSubsystem.getPose().plus(new Transform2d(translation, swerveSubsystem.getRotation2d()));
         double distance = Math.sqrt(translation.getX() * translation.getX() + translation.getY() * translation.getY());
         xVal = multiplier * translation.getX() / distance;
         yVal = multiplier * translation.getY() / distance;
