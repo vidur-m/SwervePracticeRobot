@@ -5,14 +5,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.hal.FRCNetComm.tInstances;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
-
 import java.util.function.DoubleSupplier;
-
-import com.ctre.phoenix6.hardware.Pigeon2;
-import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.config.PIDConstants;
-import com.pathplanner.lib.config.RobotConfig;
-import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 // import com.studica.frc.AHRS;
 // import com.studica.frc.AHRS.NavXComType;
 
@@ -72,6 +65,18 @@ public class DriveSubsystem extends SubsystemBase{
     private SwerveModuleState m_desiredModuleStates[] = {new SwerveModuleState(), new SwerveModuleState(), new SwerveModuleState(), new SwerveModuleState()};
     private StructArrayPublisher<SwerveModuleState> publisherDesiredStates = NetworkTableInstance.getDefault().getStructArrayTopic("MyDesiredStates", SwerveModuleState.struct).publish();
     private StructArrayPublisher<SwerveModuleState> publisherActualStates = NetworkTableInstance.getDefault().getStructArrayTopic("MyActualStates", SwerveModuleState.struct).publish();
+
+    SwerveDriveOdometry m_odometry = new SwerveDriveOdometry(
+        DriveConstants.k_DriveKinematics,
+        getRotation2d(),
+        getSwerveModulePosition());
+    
+    public void driveRobotRelative(ChassisSpeeds robotRelativeSpeeds) {
+        double multipler = 1;
+        double alt = 1;
+        drive(-robotRelativeSpeeds.vxMetersPerSecond/DriveConstants.k_MaxSpeedMetersPerSecond * multipler, -robotRelativeSpeeds.vyMetersPerSecond/DriveConstants.k_MaxSpeedMetersPerSecond * multipler, -robotRelativeSpeeds.omegaRadiansPerSecond/DriveConstants.k_MaxAngularSpeed * alt, false, "AutoBuilder");
+    }
+        
 
     public SwerveModuleState[] getSwerveModuleState() {
         return new SwerveModuleState[] {
@@ -169,12 +174,7 @@ public class DriveSubsystem extends SubsystemBase{
     }
 
     public Rotation2d getRotation2d() {
-        // return new Rotation2d(edu.wpi.first.math.util.Units.degreesToRadians(0)); // This way to avoid import issues
-        if(OperatingConstants.k_usingGyro) {
-          return new Rotation2d(m_gyro.getYaw().getValue());
-        } else {
-          return new Rotation2d(0);
-        }
+        return new Rotation2d(0);
     }
 
     public DoubleSupplier[] getWheelRotationSupplier() {
