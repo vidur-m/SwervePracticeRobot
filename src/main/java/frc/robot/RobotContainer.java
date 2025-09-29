@@ -7,35 +7,15 @@ package frc.robot;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.OperatingConstants;
 import frc.robot.subsystems.DriveSubsystem;
-import java.time.Instant;
-
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoSink;
-import edu.wpi.first.cscore.VideoSource.ConnectionStrategy;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.util.Units;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class RobotContainer {
   private DriveSubsystem m_driveSub;
-
-  private UsbCamera camera1;
-  private UsbCamera camera2;
-  private NetworkTableEntry cameraSelection;
-  private VideoSink server;
-  private boolean cameraSource;
 
   private final CommandXboxController m_driverController =
   new CommandXboxController(OIConstants.k_DriverControllerPort);
@@ -75,7 +55,7 @@ public class RobotContainer {
                                 m_driveSub
                         )
     );
-    
+
     if(OperatingConstants.k_usingSwerveDrive){
       m_driverController.leftTrigger().whileTrue(
               new RunCommand(
