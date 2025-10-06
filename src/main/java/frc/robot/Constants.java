@@ -18,6 +18,10 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
 
+  public static final class DebuggingConstants {
+    public static final boolean k_swerveDriveDebug = true;
+  }
+
   public static final class DriveConstants 
   {
     public static final double k_MaxSpeedMetersPerSecond = 4.46;
@@ -51,9 +55,9 @@ public final class Constants {
     public static final int k_FrontRightTurningCanId = 17; //used to be 14
     public static final int k_RearRightTurningCanId = 18; //changed
 
-    public static final boolean k_FrontLeftInverted = true;
-    public static final boolean k_RearLeftftInverted = true;
-    public static final boolean k_FrontRightInverted = true;
+    public static final boolean k_FrontLeftInverted = false;
+    public static final boolean k_RearLeftftInverted = false;
+    public static final boolean k_FrontRightInverted = false;
     public static final boolean k_RearRightInverted = false;
 
     // Motor Names
