@@ -7,6 +7,8 @@ import java.util.function.DoubleSupplier;
 // import com.studica.frc.AHRS;
 // import com.studica.frc.AHRS.NavXComType;
 
+import com.ctre.phoenix6.hardware.Pigeon2;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -19,7 +21,9 @@ import edu.wpi.first.networktables.StructArrayPublisher;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Configs;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OperatingConstants;
 import frc.robot.Constants.DriveConstants.MotorLocation;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase{
@@ -54,6 +58,8 @@ public class DriveSubsystem extends SubsystemBase{
         DriveConstants.k_RearRightInverted,
         Configs.MAXSwerveModule.rearRightDrivingConfig,
         MotorLocation.REAR_RIGHT);
+
+    private final Pigeon2 m_gyro = OperatingConstants.k_usingGyro ? new Pigeon2(DriveConstants.k_pigeon2Id) : null;
 
     private SwerveModuleState m_desiredModuleStates[] = {new SwerveModuleState(), new SwerveModuleState(), new SwerveModuleState(), new SwerveModuleState()};
     private StructArrayPublisher<SwerveModuleState> publisherDesiredStates = NetworkTableInstance.getDefault().getStructArrayTopic("MyDesiredStates", SwerveModuleState.struct).publish();
