@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
@@ -55,7 +54,7 @@ public final class Constants {
     public static final int k_FrontRightTurningCanId = 17; //used to be 14
     public static final int k_RearRightTurningCanId = 18; //changed
 
-    public static final boolean k_FrontLeftInverted = false;
+    public static final boolean k_FrontLeftInverted = true;
     public static final boolean k_RearLeftftInverted = false;
     public static final boolean k_FrontRightInverted = false;
     public static final boolean k_RearRightInverted = false;
